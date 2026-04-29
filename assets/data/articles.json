@@ -1,0 +1,54 @@
+[
+  {
+    "id": "1",
+    "title": "LeBron James brille encore à 42 ans",
+    "subtitle": "Le King en mode MVP !",
+    "summary": "À 37 ans, LeBron James continue d’impressionner en NBA avec des performances dignes d’un MVP.",
+    "author": "Sarah Connord",
+    "date": "2026-03-31",
+    "readingTime": 3,
+    "category": "Players",
+    "content": "Contenu complet de l'article sur LeBron James...",
+    "image": "./assets/img/Lbj.svg",
+    "featured": true
+  },
+  {
+    "id": "2",
+    "title": "OKC champion NBA",
+    "subtitle": "Premier sacre pour Oklahoma City",
+    "summary": "Les Oklahoma City Thunder sont champions NBA. Retour sur leur parcours exceptionnel jusqu’à la consécration.",
+    "author": "Tom Tatum",
+    "date": "2026-04-06",
+    "readingTime": 5,
+    "category": "Teams",
+    "content": "Contenu complet de l'article sur OKC...",
+    "image": "./assets/img/okc-champions-nba.svg",
+    "featured": true
+  },
+{
+    "id": "3",
+    "title": "OKC champion NBA",
+    "subtitle": "Premier sacre pour Oklahoma City",
+    "summary": "Les Oklahoma City Thunder sont champions NBA. Retour sur leur parcours exceptionnel jusqu’à la consécration.",
+    "author": "Albert Foster",
+    "date": "2026-02-06",
+    "readingTime": 5,
+    "category": "Teams",
+    "content": "Contenu complet de l'article sur OKC...",
+    "image": "./assets/img/okc-champs.svg",
+    "featured": true
+  },
+ {
+    "id": "4",
+    "title": "LeBron James brille encore à 42 ans",
+    "subtitle": "Le King en mode MVP !",
+    "summary": "À 37 ans, LeBron James continue d’impressionner en NBA avec des performances dignes d’un MVP.",
+    "author": "Sarah Connord",
+    "date": "2026-03-31",
+    "readingTime": 3,
+    "category": "Players",
+    "content": "Contenu complet de l'article sur LeBron James...",
+    "image": "./assets/img/le-king.svg",
+    "featured": true
+  }
+]

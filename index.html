@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Clutch Time Media</title>
+
+  <link rel="stylesheet" href="./assets/css/style.css" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon.png">
+</head>
+
+<body>
+
+  <!-- En-tête du site : logo, menu de navigation et boutons utilisateur -->
+  <header class="header">
+    <div class="container nav-container">
+
+      <!-- Logo cliquable vers la page d’accueil -->
+      <a href="./index.html" class="logo">
+        <img src="./assets/img/logo.svg" alt="Logo Clutch Time Media" />
+      </a>
+
+      <!-- Bouton burger affiché sur mobile pour ouvrir ou fermer le menu -->
+      <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Navigation principale du site -->
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="./index.html">ACCUEIL</a></li>
+          <li><a href="./assets/pages/articles.html">ARTICLES</a></li>
+          <li><a href="./assets/pages/contact.html">CONTACT</a></li>
+        </ul>
+
+        <!-- Boutons d’acès au compte utilisateur -->
+        <div class="nav-buttons">
+          <a href="./assets/pages/connexion.html" class="btn btn-blue">SE CONNECTER</a>
+          <a href="" class="btn btn-blue">S’INSCRIRE</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenu principal de la page d’accueil -->
+  <main>
+
+    <!-- Hero section : introduction visuelle du site -->
+    <section class="hero">
+      <div class="container">
+        <h1>VIBREZ AU RYTHME DE LA NBA&nbsp;!</h1>
+
+        <!-- Bannière principale avec image et appel à l’action -->
+        <div class="hero-banner">
+          <img src="./assets/img/hero-section.svg" alt="Joueurs NBA" />
+          <a href="./assets/pages/articles.html" class="btn btn-blue hero-btn">Voir les articles</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section des articles mis en avant -->
+    <section class="featured">
+      <div class="container">
+        <h2>À LA UNE</h2>
+
+        <!-- Zone du carrousel avec flèches de navigation -->
+        <div class="slider-wrapper">
+
+          <!-- Flèche pour afficher l’article précédent -->
+          <button class="arrow arrow-left" aria-label="Article précédent">&#10094;</button>
+
+          <!-- Liste des articles affichés dans le carrousel -->
+          <div class="articles-grid" id="home-carousel-track">
+
+            <!-- Article mis en avant : LeBron James -->
+            <article class="card">
+              <img src="./assets/img/Lbj.svg" alt="LeBron James" class="card-image" />
+
+              <div class="card-content">
+                <h3>LeBron James brille encore à 41 ans :</h3>
+                <h4>Le King en mode MVP !</h4>
+
+                <p>
+                  À 37 ans, LeBron James continue d’impressionner en NBA
+                  avec des performances dignes d’un MVP.
+                  Découvrez le king reste au sommet !
+                </p>
+
+                <!-- Informations secondaires de l’article -->
+                <div class="card-meta">
+                  <span>👤 Par Sarah Connord</span>
+                  <span>📅 31/03/2026</span>
+                  <span>🕒 3 min de lecture</span>
+                </div>
+
+                <a href="#" class="btn btn-blue card-btn">Lire la suite</a>
+              </div>
+            </article>
+
+            <!-- Article mis en avant : Oklahoma City Thunder -->
+            <article class="card">
+              <img src="./assets/img/okc-champions-nba.svg" alt="OKC Thunder Champions NBA" class="card-image" />
+
+              <div class="card-content">
+                <h3>OKC CHAMPION NBA :</h3>
+                <h4>Premier sacre pour Oklahoma City</h4>
+
+                <p>
+                  Les Oklahoma City Thunder sont champions NBA !
+                  Les joueurs d’OKC décrochent le titre tant convoité de champions NBA.
+                  Retour sur leur parcours exceptionnel jusqu’à la consécration.
+                </p>
+
+                <!-- Informations secondaires de l’article -->
+                <div class="card-meta">
+                  <span>👤 Par Tom Tatum</span>
+                  <span>📅 06/04/2026</span>
+                  <span>🕒 5 min de lecture</span>
+                </div>
+
+                <a href="#" class="btn btn-blue card-btn">Lire la suite</a>
+              </div>
+            </article>
+          </div>
+
+          <!-- Flèche pour afficher l’article suivant -->
+          <button class="arrow arrow-right" aria-label="Article suivant">&#10095;</button>
+        </div>
+
+        <!-- Indicateurs visuels de position du carrousel -->
+        <div class="dots" id="home-carousel-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pied de page : informations de contact et copyright -->
+  <footer class="footer">
+    <div class="container">
+      <p>3 rue des basketteurs, 5500 LAL | 55-55-55-55 | clutchtimemedia@contact.fr</p>
+      <p>Copyright©2026 Clutch Time Media</p>
+    </div>
+  </footer>
+
+  <!-- Scripts JavaScript nécessaires au fonctionnement de la page -->
+  <script src="./assets/js/articles.service.js"></script>
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/index.js"></script>
+</body>
+
+</html>

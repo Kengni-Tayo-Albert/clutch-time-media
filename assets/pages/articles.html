@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Articles - Clutch Time Media</title>
+
+    <!-- Lien vers le CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+
+    <!-- =========================
+       HEADER
+  ========================== -->
+    <header class="header">
+        <div class="container nav-container">
+
+            <!-- Logo -->
+            <a href="./index.html" class="logo">
+                <img src="../img/logo.svg" alt="Logo Clutch Time Media" />
+            </a>
+
+            <!-- Bouton burger mobile -->
+            <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Navigation -->
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Accueil</a></li>
+                    <li><a href="./articles.html">Articles</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                </ul>
+
+                <div class="nav-buttons">
+                    <a href="./connexion.html" class="btn btn-blue">Se connecter</a>
+                    <a href="./inscription.html" class="btn btn-blue">S’inscrire</a>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- =========================
+       BANNIÈRE ARTICLES
+  ========================== -->
+    <section class="banner">
+        <h1>Actualités</h1>
+    </section>
+
+    <!-- =========================
+       LISTE DES ARTICLES
+       Le JS injecte les 4 cartes ici
+  ========================== -->
+    <main class="articles">
+        <section class="container articles-grid" id="articles-list">
+            <!-- Les cartes articles sont créées par JavaScript -->
+        </section>
+    </main>
+
+    <!-- =========================
+       FOOTER
+  ========================== -->
+    <footer class="footer">
+        <p>3 rue des basketteurs, 5500 LAL | 55-55-55-55 | clutchimemedia@contact.fr</p>
+        <p>Copyright©2026 Clutch Time Media</p>
+    </footer>
+
+    <!-- =========================
+       SCRIPTS JS
+       L’ordre est important
+  ========================== -->
+    <script src="../js/main.js"></script>
+    <script src="../js/articles.service.js"></script>
+    <script src="../js/articles-page.js"></script>
+
+
+</body>
+
+</html>
