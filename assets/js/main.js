@@ -1,8 +1,4 @@
 // =========================
-// MENU BURGER
-// =========================
-
-// =========================
 // MENU BURGER MOBILE
 // =========================
 
@@ -30,28 +26,28 @@ document.addEventListener("DOMContentLoaded", () => {
   burger.addEventListener("click", (event) => {
     event.stopPropagation();
 
-    const isOpen = navbar.classList.contains("is-open");
-
-    if (isOpen) {
+    if (navbar.classList.contains("is-open")) {
       closeMenu();
     } else {
       openMenu();
     }
   });
 
-  // Ferme le menu quand un lien est cliqué
   navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      closeMenu();
-    });
+    link.addEventListener("click", closeMenu);
   });
 
-  // Ferme le menu au clic en dehors
   document.addEventListener("click", (event) => {
     const clickInsideMenu = navbar.contains(event.target);
     const clickOnBurger = burger.contains(event.target);
 
     if (!clickInsideMenu && !clickOnBurger) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
       closeMenu();
     }
   });

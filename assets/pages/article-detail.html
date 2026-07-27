@@ -2,99 +2,66 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Article - Clutch Time Media</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Article - Clutch Time Media</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon.png">
 </head>
 
 <body>
+  <header class="header">
+    <div class="container nav-container">
+      <a href="../../index.html" class="logo">
+        <img src="../img/logo.svg" alt="Logo Clutch Time Media" />
+      </a>
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="container nav-container">
-            <a href="../../index.html" class="logo">
-                <img src="../img/logo.svg" alt="Logo Clutch Time Media" />
-            </a>
-            <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <nav class="navbar">
-                <ul class="nav-links">
-                    <li><a href="../../index.html">ACCUEIL</a></li>
-                    <li><a href="articles.html">ARTICLES</a></li>
-                    <li><a href="contact.html">CONTACT</a></li>
-                </ul>
+      <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-                <div class="nav-buttons">
-                    <a href="connexion.html" class="btn btn-blue">SE CONNECTER</a>
-                    <a href="inscription.html" class="btn btn-blue">S’INSCRIRE</a>
-                </div>
-            </nav>
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="../../index.html">ACCUEIL</a></li>
+          <li><a href="./articles.html">ARTICLES</a></li>
+          <li><a href="./contact.html">CONTACT</a></li>
+        </ul>
+
+        <div class="nav-buttons">
+          <a href="./connexion.html" class="btn btn-blue">SE CONNECTER</a>
+          <a href="./inscription.html" class="btn btn-blue">S'INSCRIRE</a>
         </div>
-    </header>
+      </nav>
+    </div>
+  </header>
 
-    <!-- BANNIERE -->
-    <section class="article-banner">
-        <div class="article-banner-overlay"></div>
-        <h1>ARTICLE</h1>
+  <section class="article-banner">
+    <div class="article-banner-overlay"></div>
+    <h1>ARTICLE</h1>
+  </section>
+
+  <main class="article-page">
+    <section class="article-section">
+      <article class="article-card">
+        <div class="article-placeholder">
+          <p class="empty-state">Chargement de l'article...</p>
+        </div>
+      </article>
     </section>
+  </main>
 
-    <!-- CONTENU -->
-    <main class="article-page">
-        <section class="article-section">
-            <article class="article-card">
-                <!--
-          Ici tu pourras mettre plus tard :
-          - le titre
-          - le sous-titre
-          - l'image principale
-          - le nom de l'auteur
-          - la date
-          - le temps de lecture
-          - le contenu complet de l'article
-        -->
+  <footer class="footer">
+    <div class="container">
+      <p>3 rue des basketteurs, 5500 LAL | 55-55-55-55 | clutchtimemedia@contact.fr</p>
+      <p>Copyright 2026 Clutch Time Media</p>
+    </div>
+  </footer>
 
-                <div class="article-placeholder">
-                    <h2>Titre de l’article</h2>
-                    <p class="article-subtitle">Sous-titre ou accroche de l’article</p>
-
-                    <div class="article-meta">
-                        <span>Par Sarah Connord</span>
-                        <span>31/03/2026</span>
-                        <span>3 min de lecture</span>
-                    </div>
-
-                    <p>
-                        Ici, tu peux afficher le contenu complet de ton article. Cette zone
-                        correspond au grand bloc orange de ta maquette. Plus tard, tu pourras
-                        injecter ce contenu en JavaScript, en PHP, ou depuis une base MySQL.
-                    </p>
-
-                    <p>
-                        Pour l’instant, cette structure te permet déjà de coder une page propre,
-                        lisible, et facile à faire évoluer. Le terrain est posé, il n’attend plus
-                        que le ballon du vrai contenu.
-                    </p>
-                </div>
-            </article>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <p>3 rue des basketteurs, 5500 LAL | 55-55-55-55 | clutchtimemedia@contact.fr</p>
-            <p>Copyright©2026 Clutch Time Media</p>
-        </div>
-    </footer>
-
-    <script src="../js/articles.service.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/article-detail.js"></script>
+  <script src="../js/articles.service.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/article-detail.js"></script>
 </body>
 
 </html>

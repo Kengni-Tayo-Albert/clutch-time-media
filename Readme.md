@@ -100,3 +100,17 @@ Projet réalisé dans le cadre de la formation développeur web.
 ## 🏁 Conclusion
 Ce projet représente une première étape vers la création d’applications web complètes.  
 Il met en évidence une bonne maîtrise des bases (**HTML, CSS, JS**) ainsi qu’une capacité à structurer un projet et anticiper ses évolutions.
+
+---
+
+## Base de donnees relationnelle
+
+Une partie modelisation SQL a ete ajoutee pour couvrir la competence base de donnees relationnelle :
+
+- `docs/modelisation-bdd.md` : analyse, entites, relations, MCD simplifie et MLD.
+- `docs/saisie-looping.md` : elements a saisir dans Looping pour construire le MCD.
+- `docs/mcd-blog.svg` : schema visuel du MCD a reproduire dans Looping.
+- `database/schema.sql` : creation des tables MySQL avec cles primaires et cles etrangeres.
+- `database/seed.sql` : donnees d'exemple pour tester la base.
+
+Le fichier JSON actuel simule les donnees cote front-end. La modelisation SQL montre comment le projet peut evoluer vers une vraie base MySQL.

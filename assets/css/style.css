@@ -1239,3 +1239,324 @@ a {
     width: 100%;
   }
 }
+
+/* =========================================================
+   CORRECTIONS FRONT RESPONSIVE ET CLEAN CODE
+   Ces regles stabilisent les pages existantes sans changer l'identite visuelle.
+========================================================= */
+:root {
+  --color-dark: #0d0d0d;
+  --color-blue: #3777ff;
+  --color-orange: #d97706;
+  --color-red: #d90404;
+  --color-text: #111111;
+  --radius-small: 8px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.btn,
+.article-card-btn,
+.arrow,
+.dot {
+  min-height: 44px;
+}
+
+.btn,
+.article-card-btn {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.empty-state {
+  width: 100%;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-links a,
+.nav-buttons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: #f0c14b;
+}
+
+/* Accueil */
+.hero h1,
+.featured h2,
+.banner h1,
+.contact-banner h1,
+.login-banner h1,
+.signup-banner h1,
+.create-banner h1,
+.article-banner h1 {
+  letter-spacing: 0;
+}
+
+.hero-banner {
+  overflow: hidden;
+}
+
+.featured .articles-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.card,
+.article-card-preview,
+.contact-card,
+.login-card,
+.signup-card,
+.create-card,
+.article-card {
+  border-radius: var(--radius-small);
+}
+
+.card {
+  min-width: 0;
+}
+
+.card-content,
+.article-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-btn,
+.article-card-btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.dot {
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  border: 2px solid #000;
+  cursor: pointer;
+  padding: 0;
+}
+
+.dot.active {
+  background-color: var(--color-blue);
+  border-color: var(--color-blue);
+}
+
+/* Page articles */
+.articles-list-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 42px;
+}
+
+.article-card-preview {
+  background-color: #d9d9d9;
+  overflow: hidden;
+}
+
+.article-card-content {
+  padding: 18px;
+}
+
+.article-card-meta,
+.card-meta,
+.article-meta {
+  line-height: 1.4;
+}
+
+.article-card-btn {
+  margin-left: 0;
+  padding: 10px 24px;
+}
+
+/* Detail article */
+.article-card {
+  min-height: auto;
+}
+
+.article-detail-image {
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  border-radius: var(--radius-small);
+  margin: 26px 0;
+}
+
+.article-placeholder p {
+  max-width: 100%;
+}
+
+/* Formulaires */
+.form-group input,
+.form-group select,
+.form-group textarea,
+.create-form .form-group select {
+  border-radius: 4px;
+}
+
+.create-form .form-group input,
+.create-form .form-group select,
+.create-form .form-group textarea {
+  width: 100%;
+  border: 1.5px solid #7a4500;
+  background-color: transparent;
+  color: #111;
+  font-size: 1rem;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.create-form .form-group select {
+  height: 42px;
+}
+
+.form-group textarea,
+.textarea-small,
+.textarea-large {
+  resize: vertical;
+}
+
+@media (max-width: 1024px) {
+  .nav-container {
+    gap: 18px;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+  }
+
+  .featured .articles-grid,
+  .articles-list-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .logo img {
+    width: 78px;
+  }
+
+  .navbar {
+    flex-basis: 100%;
+  }
+
+  .nav-links,
+  .nav-buttons {
+    width: 100%;
+  }
+
+  .nav-buttons .btn {
+    width: 100%;
+  }
+
+  .hero {
+    padding: 40px 0 0;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+    margin-bottom: 24px;
+  }
+
+  .hero-btn {
+    width: calc(100% - 40px);
+    max-width: 260px;
+  }
+
+  .featured .articles-grid,
+  .articles-list-grid {
+    gap: 24px;
+  }
+
+  .card-image,
+  .article-card-image {
+    height: 240px;
+  }
+
+  .card-meta,
+  .article-card-meta,
+  .article-meta {
+    gap: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .contact-page,
+  .login-page,
+  .signup-page,
+  .create-page,
+  .article-page {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .contact-card,
+  .login-card,
+  .signup-card,
+  .create-card,
+  .article-card {
+    padding: 24px 18px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    width: 92%;
+  }
+
+  .hero h1 {
+    font-size: 1.7rem;
+  }
+
+  .card-image,
+  .article-card-image {
+    height: 210px;
+  }
+
+  .article-card-content h3 {
+    font-size: 1.05rem;
+  }
+
+  .article-card-content h4 {
+    font-size: 0.98rem;
+  }
+
+  .footer p {
+    overflow-wrap: anywhere;
+  }
+}

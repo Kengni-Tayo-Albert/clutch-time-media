@@ -1,41 +1,49 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  // On vérifie qu'on est bien sur la page détail
-  const articleContainer = document.querySelector(".article-placeholder");
-  if (!articleContainer) return;
+// =========================
+// PAGE DETAIL ARTICLE
+// =========================
+// Recupere l'id dans l'URL puis affiche l'article correspondant.
 
-  // On lit les paramètres dans l'URL
+document.addEventListener("DOMContentLoaded", async () => {
+  const articleContainer = document.querySelector(".article-placeholder");
+
+  if (!articleContainer || !window.ArticleService) return;
+
   const params = new URLSearchParams(window.location.search);
   const articleId = params.get("id");
 
-  // Si aucun id n'est passé dans l'URL
   if (!articleId) {
-    articleContainer.innerHTML = "<p>Aucun article sélectionné.</p>";
+    articleContainer.innerHTML = '<p class="empty-state">Aucun article selectionne.</p>';
     return;
   }
 
-  // On récupère l'article correspondant
   const article = await window.ArticleService.getArticleById(articleId);
 
-  // Si aucun article n'est trouvé
   if (!article) {
-    articleContainer.innerHTML = "<p>Article introuvable.</p>";
+    articleContainer.innerHTML = '<p class="empty-state">Article introuvable.</p>';
     return;
   }
 
-  // On injecte le HTML dans la page
+  const title = window.ArticleService.escapeHTML(article.title);
+  const subtitle = window.ArticleService.escapeHTML(article.subtitle);
+  const content = window.ArticleService.escapeHTML(article.content);
+  const author = window.ArticleService.escapeHTML(article.author || "Auteur inconnu");
+  const category = window.ArticleService.escapeHTML(article.category || "Non classe");
+  const readingTime = Number(article.readingTime) || 1;
+  const imagePath = window.ArticleService.resolveImagePath(article.image);
+  const formattedDate = window.ArticleService.formatDate(article.date);
+
   articleContainer.innerHTML = `
-    <h2>${article.title}</h2>
-    <p class="article-subtitle">${article.subtitle}</p>
+    <h2>${title}</h2>
+    <p class="article-subtitle">${subtitle}</p>
 
-  <div class="article-meta">
-  <span>👤 Par ${article.author}</span>
-  <span>📅 ${article.date}</span>
-  <span>🕒 ${article.readingTime} min de lecture</span>
-  <span>🏷️ ${article.category}</span>
-</div>
+    <div class="article-meta">
+      <span>Par ${author}</span>
+      <span>${formattedDate}</span>
+      <span>${readingTime} min de lecture</span>
+      <span>${category}</span>
+    </div>
 
-    <img src="${article.image}" alt="${article.title}" class="article-detail-image">
-
-    <p>${article.content}</p>
+    <img src="${imagePath}" alt="${title}" class="article-detail-image">
+    <p>${content}</p>
   `;
 });

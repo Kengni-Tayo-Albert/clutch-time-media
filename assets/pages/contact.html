@@ -10,13 +10,12 @@
 </head>
 
 <body>
-
-  <!-- HEADER -->
   <header class="header">
     <div class="container nav-container">
       <a href="../../index.html" class="logo">
         <img src="../img/logo.svg" alt="Logo Clutch Time Media" />
       </a>
+
       <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -32,50 +31,49 @@
 
         <div class="nav-buttons">
           <a href="./connexion.html" class="btn btn-blue">SE CONNECTER</a>
-          <a href="#" class="btn btn-blue">S’INSCRIRE</a>
+          <a href="./inscription.html" class="btn btn-blue">S'INSCRIRE</a>
         </div>
       </nav>
     </div>
   </header>
 
-  <!-- BANNIERE -->
   <section class="contact-banner">
     <div class="contact-banner-overlay"></div>
     <h1>CONTACTEZ-NOUS</h1>
   </section>
 
-  <!-- FORMULAIRE -->
   <main class="contact-page">
     <section class="contact-section">
       <div class="contact-card">
         <form class="contact-form">
           <div class="form-group">
             <label for="name">Nom</label>
-            <input type="text" id="name" name="name" />
+            <input type="text" id="name" name="name" required />
           </div>
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" />
+            <input type="email" id="email" name="email" required />
           </div>
 
           <div class="form-group">
+            <label for="category">Categorie</label>
             <select id="category" name="category">
-              <option>Questions générales</option>
+              <option>Questions generales</option>
               <option>Partenariat</option>
-              <option>Publicité</option>
+              <option>Publicite</option>
               <option>Support technique</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="subject">Sujet</label>
-            <input type="text" id="subject" name="subject" />
+            <input type="text" id="subject" name="subject" required />
           </div>
 
           <div class="form-group">
             <label for="message">Message</label>
-            <textarea id="message" name="message"></textarea>
+            <textarea id="message" name="message" required></textarea>
           </div>
 
           <div class="form-submit">
@@ -86,14 +84,14 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <p>3 rue des basketteurs, 5500 LAL | 55-55-55-55 | clutchtimemedia@contact.fr</p>
-      <p>Copyright©2026 Clutch Time Media</p>
+      <p>Copyright 2026 Clutch Time Media</p>
     </div>
   </footer>
-<script src="../js/main.js"></script>
+
+  <script src="../js/main.js"></script>
 </body>
 
 </html>

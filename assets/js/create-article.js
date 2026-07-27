@@ -1,54 +1,54 @@
+// =========================
+// CREATION D'ARTICLE
+// =========================
+// Le formulaire ajoute un article dans localStorage.
+// Cette logique sera remplacee plus tard par un POST vers l'API SQL.
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("#create-article-form");
 
-  // Si on n'est pas sur la page création d'article, on arrête
-  if (!form) return;
+  if (!form || !window.ArticleService) return;
 
   form.addEventListener("submit", (event) => {
-    // Empêche le rechargement de la page
     event.preventDefault();
 
-    // 1) On récupère les valeurs des champs
-    const title = document.querySelector("#title").value.trim();
-    const subtitle = document.querySelector("#subtitle").value.trim();
-    const summary = document.querySelector("#summary").value.trim();
-    const author = document.querySelector("#author").value.trim();
-    const date = document.querySelector("#date").value.trim();
-    const readingTime = document.querySelector("#reading-time").value.trim();
-    const content = document.querySelector("#content").value.trim();
+    const formData = new FormData(form);
+    const title = formData.get("title")?.trim();
+    const subtitle = formData.get("subtitle")?.trim();
+    const summary = formData.get("summary")?.trim();
+    const author = formData.get("author")?.trim();
+    const date = formData.get("date")?.trim();
+    const readingTime = Number(formData.get("reading-time"));
+    const category = formData.get("category")?.trim() || "Community";
+    const content = formData.get("content")?.trim();
 
-    // 2) Validation simple
     if (!title || !subtitle || !summary || !author || !date || !readingTime || !content) {
-      alert("Merci de remplir tous les champs.");
+      alert("Merci de remplir tous les champs obligatoires.");
       return;
     }
 
-    // 3) On construit un objet article
+    if (readingTime < 1) {
+      alert("Le temps de lecture doit etre superieur a 0.");
+      return;
+    }
+
     const newArticle = {
-      // Date.now() crée un id simple basé sur l'heure actuelle
       id: Date.now().toString(),
       title,
       subtitle,
       summary,
       author,
       date,
-      readingTime: Number(readingTime),
+      readingTime,
+      category,
       content,
-
-      // Image par défaut, car ton formulaire n'a pas encore d'upload image
-      image: "../img/hero-section.svg",
-
-      // On peut décider si l'article doit apparaître en home
+      image: "./assets/img/hero-section.svg",
       featured: false
     };
 
-    // 4) On sauvegarde l'article dans localStorage
     window.ArticleService.addLocalArticle(newArticle);
 
-    // 5) Petit message de confirmation
-    alert("Article créé avec succès !");
-
-    // 6) Redirection vers la page détail avec l'id dans l'URL
+    alert("Article cree avec succes !");
     window.location.href = `./article-detail.html?id=${newArticle.id}`;
   });
 });

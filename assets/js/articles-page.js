@@ -1,61 +1,51 @@
 // =========================
 // PAGE ARTICLES
-// Objectif : afficher les articles depuis le fichier JSON
 // =========================
+// Affiche toutes les cartes articles dans la page liste.
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // Zone où les cartes articles seront ajoutées
   const articlesList = document.querySelector("#articles-list");
 
-  // Sécurité : si la zone n'existe pas, le script s'arrête
-  if (!articlesList) return;
+  if (!articlesList || !window.ArticleService) return;
 
-  // Vide la zone avant injecter les articles
-  articlesList.innerHTML = "";
-
-  // Récupère les articles depuis le service qui utilise fetch()
   const articles = await window.ArticleService.getAllArticles();
 
-  // Message affiché si aucun article n'est disponible
   if (articles.length === 0) {
-    articlesList.innerHTML = "<p>Aucun article disponible pour le moment.</p>";
+    articlesList.innerHTML = '<p class="empty-state">Aucun article disponible pour le moment.</p>';
     return;
   }
 
-  // Création d'une carte pour chaque article
-  articles.forEach((article) => {
-    const card = document.createElement("article");
-    card.classList.add("article-card-preview");
+  articlesList.innerHTML = articles.map((article) => {
+    const title = window.ArticleService.escapeHTML(article.title);
+    const subtitle = window.ArticleService.escapeHTML(article.subtitle);
+    const summary = window.ArticleService.escapeHTML(article.summary);
+    const author = window.ArticleService.escapeHTML(article.author || "Auteur inconnu");
+    const category = window.ArticleService.escapeHTML(article.category || "Non classe");
+    const readingTime = Number(article.readingTime) || 1;
+    const imagePath = window.ArticleService.resolveImagePath(article.image);
+    const formattedDate = window.ArticleService.formatDate(article.date);
 
-    // Adapte le chemin de l'image pour une page située dans assets/pages
-    const imagePath = article.image.replace("./assets/img/", "../img/");
+    return `
+      <article class="article-card-preview">
+        <img src="${imagePath}" alt="${title}" class="article-card-image">
 
-    card.innerHTML = `
-      <img 
-        src="${imagePath}" 
-        alt="${article.title}" 
-        class="article-card-image"
-      >
+        <div class="article-card-content">
+          <h3>${title}</h3>
+          <h4>${subtitle}</h4>
+          <p>${summary}</p>
 
-      <div class="article-card-content">
-        <h3>${article.title}</h3>
-        <h4>${article.subtitle}</h4>
+          <div class="article-card-meta">
+            <span>Par ${author}</span>
+            <span>${formattedDate}</span>
+            <span>${readingTime} min de lecture</span>
+            <span>${category}</span>
+          </div>
 
-        <p>${article.summary}</p>
-
-        <div class="article-card-meta">
-  <span>👤 Par ${article.author}</span>
-  <span>📅 ${article.date}</span>
-  <span>🕒 ${article.readingTime} min de lecture</span>
-  <span>🏷️ ${article.category}</span>
-</div>
-      </div>
-
-      <a href="./article-detail.html?id=${article.id}" class="article-card-btn">
-        Lire la suite
-      </a>
+          <a href="./article-detail.html?id=${article.id}" class="article-card-btn">
+            Lire la suite
+          </a>
+        </div>
+      </article>
     `;
-
-    articlesList.appendChild(card);
-  });
+  }).join("");
 });

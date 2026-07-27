@@ -10,13 +10,12 @@
 </head>
 
 <body>
-
-  <!-- HEADER -->
   <header class="header">
     <div class="container nav-container">
       <a href="../../index.html" class="logo">
         <img src="../img/logo.svg" alt="Logo Clutch Time Media" />
       </a>
+
       <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -26,19 +25,18 @@
       <nav class="navbar">
         <ul class="nav-links">
           <li><a href="../../index.html">ACCUEIL</a></li>
-          <li><a href="../../assets/pages/articles.html">ARTICLES</a></li>
-          <li><a href="../../assets/pages/contact.html">CONTACT</a></li>
+          <li><a href="./articles.html">ARTICLES</a></li>
+          <li><a href="./contact.html">CONTACT</a></li>
         </ul>
 
         <div class="nav-buttons">
           <a href="./connexion.html" class="btn btn-blue">SE CONNECTER</a>
-          <a href="./inscription.html" class="btn btn-blue">S’INSCRIRE</a>
+          <a href="./inscription.html" class="btn btn-blue">S'INSCRIRE</a>
         </div>
       </nav>
     </div>
   </header>
 
-  <!-- BANNIERE -->
   <section class="signup-banner">
     <div class="signup-banner-overlay"></div>
     <h1>
@@ -47,49 +45,46 @@
     </h1>
   </section>
 
-  <!-- FORMULAIRE -->
   <main class="signup-page">
     <section class="signup-section">
       <div class="signup-card">
         <form class="signup-form">
-
           <div class="form-group">
             <label for="lastname">Nom</label>
-            <input type="text" id="lastname" name="lastname" />
+            <input type="text" id="lastname" name="lastname" required />
           </div>
 
           <div class="form-group">
-            <label for="firstname">Prénom</label>
-            <input type="text" id="firstname" name="firstname" />
+            <label for="firstname">Prenom</label>
+            <input type="text" id="firstname" name="firstname" required />
           </div>
 
           <div class="form-group">
             <label for="signup-email">Email</label>
-            <input type="email" id="signup-email" name="email" />
+            <input type="email" id="signup-email" name="email" required />
           </div>
 
           <div class="form-group">
             <label for="signup-password">Mot de passe</label>
-            <input type="password" id="signup-password" name="password" />
+            <input type="password" id="signup-password" name="password" required />
           </div>
 
           <div class="form-submit">
-            <a href="./creation-article.html" class="btn btn-blue">Créer un compte</a>
+            <a href="./creation-article.html" class="btn btn-blue">Creer un compte</a>
           </div>
-
         </form>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <p>3 rue des basketteurs, 5500 LAL | 55-55-55-55 | clutchtimemedia@contact.fr</p>
-      <p>Copyright©2026 Clutch Time Media</p>
+      <p>Copyright 2026 Clutch Time Media</p>
     </div>
   </footer>
-<script src="../js/main.js"></script>
+
+  <script src="../js/main.js"></script>
 </body>
 
 </html>
