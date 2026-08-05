@@ -1,15 +1,15 @@
 // =========================
 // CREATION D'ARTICLE
 // =========================
-// Le formulaire ajoute un article dans localStorage.
-// Cette logique sera remplacee plus tard par un POST vers l'API SQL.
+// Le formulaire cree un article via l'API SQL quand le backend est lance.
+// Si l'API est indisponible, le service garde un secours en localStorage.
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("#create-article-form");
 
   if (!form || !window.ArticleService) return;
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(form);
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (readingTime < 1) {
-      alert("Le temps de lecture doit etre superieur a 0.");
+      alert("Le temps de lecture doit être supérieur à 0.");
       return;
     }
 
@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
       featured: false
     };
 
-    window.ArticleService.addLocalArticle(newArticle);
+    const savedArticle = await window.ArticleService.addArticle(newArticle);
 
-    alert("Article cree avec succes !");
-    window.location.href = `./article-detail.html?id=${newArticle.id}`;
+    alert("Article créé avec succès !");
+    window.location.href = `./article-detail.html?id=${savedArticle.id}`;
   });
 });

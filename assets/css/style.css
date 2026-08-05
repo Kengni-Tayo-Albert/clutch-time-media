@@ -1417,6 +1417,63 @@ textarea {
   max-width: 100%;
 }
 
+.comments-section {
+  margin-top: 42px;
+  padding-top: 28px;
+  border-top: 2px solid rgba(0, 0, 0, 0.25);
+}
+
+.comments-section h3 {
+  font-size: 1.6rem;
+  margin-bottom: 18px;
+}
+
+.comments-list {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.comment-item {
+  background-color: rgba(255, 255, 255, 0.32);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: var(--radius-small);
+  padding: 16px;
+}
+
+.comment-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.comment-form {
+  display: grid;
+  gap: 16px;
+  max-width: 720px;
+}
+
+.comment-form .form-group {
+  display: grid;
+  gap: 8px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  border: 1.5px solid #7a4500;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #111;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.comment-form .btn {
+  justify-self: start;
+}
+
 /* Formulaires */
 .form-group input,
 .form-group select,

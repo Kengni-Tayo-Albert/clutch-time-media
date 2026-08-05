@@ -2,11 +2,13 @@
 // SERVICE DES ARTICLES
 // =========================
 // Ce fichier centralise l'acces aux donnees des articles.
-// Aujourd'hui, les donnees viennent d'un JSON + localStorage.
-// Plus tard, ce service pourra appeler une API reliee a MySQL.
+// Il essaie d'abord l'API MySQL, puis revient au JSON/localStorage si le backend est eteint.
 
 const STORAGE_KEY = "clutchTimeArticles";
 const SUBPAGE_SEGMENT = "/assets/pages/";
+const API_BASE_URL = ["localhost", "127.0.0.1"].includes(window.location.hostname)
+  ? "http://localhost:3000/api"
+  : "/api";
 
 function isSubPage() {
   return window.location.pathname.includes(SUBPAGE_SEGMENT);
@@ -76,6 +78,36 @@ async function fetchBaseArticles() {
   }
 }
 
+async function fetchApiArticles() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/articles`);
+
+    if (!response.ok) {
+      throw new Error("Impossible de recuperer les articles depuis l'API");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.warn("API indisponible, utilisation du JSON local :", error.message);
+    return null;
+  }
+}
+
+async function fetchApiArticleById(articleId) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/articles/${articleId}`);
+
+    if (!response.ok) {
+      throw new Error("Article introuvable depuis l'API");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.warn("API indisponible pour le detail, utilisation du JSON local :", error.message);
+    return null;
+  }
+}
+
 function getLocalArticles() {
   const rawArticles = localStorage.getItem(STORAGE_KEY);
 
@@ -99,7 +131,66 @@ function addLocalArticle(article) {
   saveLocalArticles(currentArticles);
 }
 
+async function addArticle(article) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/articles`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(article)
+    });
+
+    if (!response.ok) {
+      throw new Error("Impossible de creer l'article dans MySQL");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.warn("Creation API indisponible, sauvegarde locale :", error.message);
+    addLocalArticle(article);
+    return article;
+  }
+}
+
+async function getCommentsByArticle(articleId) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/articles/${articleId}/comments`);
+
+    if (!response.ok) {
+      throw new Error("Impossible de recuperer les commentaires");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.warn("Commentaires API indisponibles :", error.message);
+    return [];
+  }
+}
+
+async function addComment(articleId, comment) {
+  const response = await fetch(`${API_BASE_URL}/articles/${articleId}/comments`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(comment)
+  });
+
+  if (!response.ok) {
+    throw new Error("Impossible d'ajouter le commentaire");
+  }
+
+  return response.json();
+}
+
 async function getAllArticles() {
+  const apiArticles = await fetchApiArticles();
+
+  if (apiArticles) {
+    return apiArticles;
+  }
+
   const baseArticles = await fetchBaseArticles();
   const localArticles = getLocalArticles();
 
@@ -107,15 +198,24 @@ async function getAllArticles() {
 }
 
 async function getArticleById(articleId) {
+  const apiArticle = await fetchApiArticleById(articleId);
+
+  if (apiArticle) {
+    return apiArticle;
+  }
+
   const articles = await getAllArticles();
   return articles.find((article) => String(article.id) === String(articleId));
 }
 
 window.ArticleService = {
+  addArticle,
+  addComment,
   addLocalArticle,
   escapeHTML,
   formatDate,
   getAllArticles,
   getArticleById,
+  getCommentsByArticle,
   resolveImagePath
 };
