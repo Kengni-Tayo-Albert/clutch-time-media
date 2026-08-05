@@ -114,7 +114,14 @@ function getLocalArticles() {
   if (!rawArticles) return [];
 
   try {
-    return JSON.parse(rawArticles);
+    const articles = JSON.parse(rawArticles);
+    const correctedArticles = fixKnownLocalTypos(articles);
+
+    if (correctedArticles.hasChanged) {
+      saveLocalArticles(correctedArticles.articles);
+    }
+
+    return correctedArticles.articles;
   } catch (error) {
     console.error("Erreur de lecture localStorage :", error);
     return [];
@@ -123,6 +130,28 @@ function getLocalArticles() {
 
 function saveLocalArticles(articles) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
+}
+
+function fixKnownLocalTypos(articles) {
+  let hasChanged = false;
+
+  const correctedArticles = articles.map((article) => {
+    if (!article.subtitle || !article.subtitle.toLowerCase().includes("dabce")) {
+      return article;
+    }
+
+    hasChanged = true;
+
+    return {
+      ...article,
+      subtitle: article.subtitle.replace(/the last dabce/i, "The Last Dance").replace(/dabce/gi, "Dance")
+    };
+  });
+
+  return {
+    articles: correctedArticles,
+    hasChanged
+  };
 }
 
 function addLocalArticle(article) {
