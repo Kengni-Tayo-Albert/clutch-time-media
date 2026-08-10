@@ -240,7 +240,39 @@ DB_NAME=blog
 
 Le fichier `.env` n'est pas versionne grace a `.gitignore`.
 
-## 6. Routes API A Connaitre
+## 6. URLs Finales A Montrer
+
+Front GitHub Pages :
+
+```text
+https://kengni-tayo-albert.github.io/clutch-time-media/
+https://kengni-tayo-albert.github.io/clutch-time-media/assets/pages/articles.html
+```
+
+Backend Railway :
+
+```text
+https://clutch-time-media-production.up.railway.app
+```
+
+Routes API de preuve :
+
+```text
+https://clutch-time-media-production.up.railway.app/api/health
+https://clutch-time-media-production.up.railway.app/api/articles
+https://clutch-time-media-production.up.railway.app/api/articles/5/comments
+```
+
+Preuve fonctionnelle :
+
+```text
+Un article de test a ete cree depuis le site public GitHub Pages.
+Il est visible dans /api/articles.
+Un commentaire a ete cree sur l'article 5.
+Il est visible dans /api/articles/5/comments.
+```
+
+## 7. Routes API A Connaitre
 
 ```text
 GET    /api/health
@@ -253,14 +285,14 @@ GET    /api/articles/:id/comments
 POST   /api/articles/:id/comments
 ```
 
-## 7. Demonstrations A Faire Au Jury
+## 8. Demonstrations A Faire Au Jury
 
 ### Demonstration 1 - API Articles
 
 Ouvrir dans le navigateur :
 
 ```text
-http://localhost:3000/api/articles
+https://clutch-time-media-production.up.railway.app/api/articles
 ```
 
 Preuve :
@@ -274,7 +306,7 @@ Les articles sont renvoyes en JSON depuis MySQL.
 Ouvrir :
 
 ```text
-http://localhost:3000/assets/pages/articles.html
+https://kengni-tayo-albert.github.io/clutch-time-media/assets/pages/articles.html
 ```
 
 Preuve :
@@ -288,7 +320,7 @@ Le front affiche les articles venant de l'API.
 Ouvrir :
 
 ```text
-http://localhost:3000/assets/pages/creation-article.html
+https://kengni-tayo-albert.github.io/clutch-time-media/assets/pages/creation-article.html
 ```
 
 Creer un article test depuis le formulaire.
@@ -313,7 +345,7 @@ ORDER BY ar.id_article DESC;
 Ouvrir une page detail :
 
 ```text
-http://localhost:3000/assets/pages/article-detail.html?id=1
+https://kengni-tayo-albert.github.io/clutch-time-media/assets/pages/article-detail.html?id=5
 ```
 
 Ajouter un commentaire depuis le formulaire.
@@ -333,7 +365,7 @@ JOIN article ar ON c.id_article = ar.id_article
 ORDER BY c.id_commentaire DESC;
 ```
 
-## 8. Securite Minimale
+## 9. Securite Minimale
 
 Elements mis en place :
 
@@ -348,7 +380,7 @@ Configuration CORS limitee aux origines locales autorisees.
 Gestion des erreurs serveur.
 ```
 
-## 9. Difference Avec MongoDB
+## 10. Difference Avec MongoDB
 
 MongoDB stocke les donnees sous forme de documents souples.
 
@@ -371,7 +403,7 @@ Phrase simple pour la soutenance :
 MongoDB est oriente documents, alors que MySQL est relationnel. Dans ce projet, MySQL me permet de montrer clairement les relations entre articles, auteurs, categories, commentaires et tags.
 ```
 
-## 10. Discours Court Pour Le Jury
+## 11. Discours Court Pour Le Jury
 
 ```text
 Au depart, mon site Clutch Time Media affichait les articles depuis un fichier JSON.

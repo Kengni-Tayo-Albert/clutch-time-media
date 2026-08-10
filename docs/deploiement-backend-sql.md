@@ -14,6 +14,37 @@ En local, MySQL est sur `localhost:3306`. En ligne, `localhost` ne fonctionne pl
 
 Il faut donc utiliser une base MySQL hebergee.
 
+## URLs Finales
+
+Front GitHub Pages :
+
+```text
+https://kengni-tayo-albert.github.io/clutch-time-media/
+https://kengni-tayo-albert.github.io/clutch-time-media/assets/pages/articles.html
+```
+
+Backend Railway :
+
+```text
+https://clutch-time-media-production.up.railway.app
+```
+
+Routes API a montrer :
+
+```text
+https://clutch-time-media-production.up.railway.app/api/health
+https://clutch-time-media-production.up.railway.app/api/articles
+https://clutch-time-media-production.up.railway.app/api/articles/5/comments
+```
+
+Tests deja valides :
+
+```text
+/api/health renvoie {"status":"ok","database":"blog"}.
+/api/articles renvoie les articles stockes dans MySQL Railway.
+/api/articles/5/comments renvoie le commentaire cree depuis le site.
+```
+
 ## Choix Recommande
 
 Pour garder un parcours simple, le chemin recommande est :
@@ -49,12 +80,20 @@ server/db.js lit les variables MySQL locales ou distantes.
 En production, il faudra configurer :
 
 ```text
-CLIENT_ORIGIN=https://url-de-ton-site
-DB_HOST=host_mysql_distant
+CLIENT_ORIGIN=https://kengni-tayo-albert.github.io
+MYSQL_URL=mysql://user:password@host:port/database
+NODE_ENV=production
+DB_SSL=false
+```
+
+En local, on peut garder :
+
+```text
+DB_HOST=localhost
 DB_PORT=3306
-DB_USER=utilisateur_mysql
+DB_USER=root
 DB_PASSWORD=mot_de_passe_mysql
-DB_NAME=nom_base_mysql
+DB_NAME=blog
 DB_SSL=false
 ```
 
@@ -92,15 +131,19 @@ DATABASE_URL=mysql://user:password@host:port/database
 
 7. Deployer le service.
 
-8. Ouvrir l'URL publique fournie par Railway.
+8. Ouvrir l'URL publique fournie par Railway :
+
+```text
+https://clutch-time-media-production.up.railway.app
+```
 
 9. Tester :
 
 ```text
-/api/health
-/api/articles
-/assets/pages/articles.html
-/assets/pages/article-detail.html?id=1
+https://clutch-time-media-production.up.railway.app/api/health
+https://clutch-time-media-production.up.railway.app/api/articles
+https://kengni-tayo-albert.github.io/clutch-time-media/assets/pages/articles.html
+https://kengni-tayo-albert.github.io/clutch-time-media/assets/pages/article-detail.html?id=5
 ```
 
 ## Commandes Locales Utiles
@@ -147,5 +190,5 @@ Pour un deploiement public, il faut une base accessible par le serveur heberge.
 ## Phrase Simple Pour La Soutenance
 
 ```text
-Pour le deploiement, je ne peux pas garder la base MySQL locale en localhost. J'ai donc prepare le backend pour utiliser des variables d'environnement et se connecter a une base MySQL distante fournie par l'hebergeur.
+Pour le deploiement, je ne pouvais pas garder la base MySQL locale en localhost. J'ai donc deploye une base MySQL sur Railway, puis connecte le backend Express a cette base avec des variables d'environnement. Le front GitHub Pages appelle maintenant l'API Railway.
 ```

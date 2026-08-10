@@ -53,6 +53,40 @@ Le site sera disponible ici :
 http://localhost:3000
 ```
 
+## URLs finales de production
+
+Le site public est disponible ici :
+
+```text
+https://kengni-tayo-albert.github.io/clutch-time-media/
+```
+
+La page des articles du front est disponible ici :
+
+```text
+https://kengni-tayo-albert.github.io/clutch-time-media/assets/pages/articles.html
+```
+
+Le backend Railway est disponible ici :
+
+```text
+https://clutch-time-media-production.up.railway.app
+```
+
+Routes de verification en ligne :
+
+```text
+https://clutch-time-media-production.up.railway.app/api/health
+https://clutch-time-media-production.up.railway.app/api/articles
+https://clutch-time-media-production.up.railway.app/api/articles/5/comments
+```
+
+La chaine validee en production est :
+
+```text
+GitHub Pages -> Backend Railway -> MySQL Railway
+```
+
 ## Routes API principales
 
 ```text
@@ -71,13 +105,13 @@ POST   /api/articles/:id/comments
 Afficher les articles depuis MySQL :
 
 ```text
-http://localhost:3000/api/articles
+https://clutch-time-media-production.up.railway.app/api/articles
 ```
 
 Afficher les commentaires d'un article :
 
 ```text
-http://localhost:3000/api/articles/1/comments
+https://clutch-time-media-production.up.railway.app/api/articles/5/comments
 ```
 
 Depuis le site, la page detail d'un article permet aussi d'ajouter un commentaire. Le commentaire est enregistre dans la table `commentaire`, puis relie a `article` et `auteur` avec des cles etrangeres.

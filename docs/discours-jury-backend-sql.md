@@ -24,6 +24,12 @@ Maintenant :
 Front-end -> API Express -> MySQL
 ```
 
+En production, le front est heberge sur GitHub Pages, le backend Node.js / Express est heberge sur Railway, et la base relationnelle MySQL est aussi sur Railway.
+
+```text
+GitHub Pages -> API Railway -> MySQL Railway
+```
+
 Le front-end utilise `fetch()` pour appeler le backend. Le backend execute ensuite des requetes SQL vers la base MySQL `blog`.
 
 ## 3. Modelisation
@@ -149,24 +155,34 @@ Le backend execute une requete SQL avec des jointures pour recuperer les article
 Je peux montrer d'abord l'API :
 
 ```text
-http://localhost:3000/api/articles
+https://clutch-time-media-production.up.railway.app/api/articles
 ```
 
 Cela affiche les articles au format JSON.
 
+Je peux aussi montrer que le backend est connecte a la base :
+
+```text
+https://clutch-time-media-production.up.railway.app/api/health
+```
+
 Ensuite, je peux montrer la page articles du site :
 
 ```text
-http://localhost:3000/assets/pages/articles.html
+https://kengni-tayo-albert.github.io/clutch-time-media/assets/pages/articles.html
 ```
 
 Les articles affiches viennent maintenant de MySQL via le backend.
 
-Je peux aussi creer un article depuis le formulaire du site, puis verifier dans DBeaver que l'article a bien ete insere dans la table `article`.
+Je peux aussi creer un article depuis le formulaire du site, puis verifier dans l'API ou dans la base que l'article a bien ete insere dans la table `article`.
 
-Enfin, je peux ajouter un commentaire depuis la page detail d'un article, puis verifier dans DBeaver que le commentaire est bien relie a l'article et a son auteur.
+Enfin, je peux ajouter un commentaire depuis la page detail d'un article, puis verifier avec cette route que le commentaire est bien relie a l'article :
 
-## 9. Difference Avec MongoDB
+```text
+https://clutch-time-media-production.up.railway.app/api/articles/5/comments
+```
+
+## 9. Securite Minimale
 
 Avant de passer a la comparaison avec MongoDB, je peux aussi expliquer les securites minimales mises en place.
 
