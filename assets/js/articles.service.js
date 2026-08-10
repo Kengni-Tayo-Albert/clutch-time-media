@@ -6,9 +6,10 @@
 
 const STORAGE_KEY = "clutchTimeArticles";
 const SUBPAGE_SEGMENT = "/assets/pages/";
+const PRODUCTION_API_BASE_URL = "https://clutch-time-media-production.up.railway.app/api";
 const API_BASE_URL = ["localhost", "127.0.0.1"].includes(window.location.hostname)
   ? "http://localhost:3000/api"
-  : "/api";
+  : PRODUCTION_API_BASE_URL;
 
 function isSubPage() {
   return window.location.pathname.includes(SUBPAGE_SEGMENT);
