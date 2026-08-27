@@ -2,12 +2,14 @@
 // PAGE DETAIL ARTICLE
 // =========================
 // Recupere l'id dans l'URL puis affiche l'article et ses commentaires.
+// Cette page démontre la relation SQL entre article, auteur, categorie et commentaire.
 
 document.addEventListener("DOMContentLoaded", async () => {
   const articleContainer = document.querySelector(".article-placeholder");
 
   if (!articleContainer || !window.ArticleService) return;
 
+  // L'identifiant présent dans l'URL permet de charger le bon article.
   const params = new URLSearchParams(window.location.search);
   const articleId = params.get("id");
 
@@ -16,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // Charge le détail de l'article depuis l'API SQL en priorité.
   const article = await window.ArticleService.getArticleById(articleId);
 
   if (!article) {
@@ -32,6 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const imagePath = window.ArticleService.resolveImagePath(article.image);
   const formattedDate = window.ArticleService.formatDate(article.date);
 
+  // Injecte la structure de l'article et prépare la zone commentaires.
   articleContainer.innerHTML = `
     <h2>${title}</h2>
     <p class="article-subtitle">${subtitle}</p>
@@ -71,6 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const commentsList = articleContainer.querySelector("#comments-list");
   const commentForm = articleContainer.querySelector("#comment-form");
 
+  // Recharge les commentaires depuis MySQL après l'affichage ou après une création.
   async function renderComments() {
     const comments = await window.ArticleService.getCommentsByArticle(articleId);
 
@@ -96,6 +101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }).join("");
   }
 
+  // Envoie un nouveau commentaire à l'API, puis rafraîchit la liste.
   commentForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 

@@ -2,23 +2,30 @@
 // SERVICE DES ARTICLES
 // =========================
 // Ce fichier centralise l'acces aux donnees des articles.
-// Il essaie d'abord l'API MySQL, puis revient au JSON/localStorage si le backend est eteint.
+// Il essaie d'abord l'API MySQL, puis revient au JSON/localStorage si le backend est indisponible.
 
 const STORAGE_KEY = "clutchTimeArticles";
 const SUBPAGE_SEGMENT = "/assets/pages/";
 const PRODUCTION_API_BASE_URL = "https://clutch-time-media-production.up.railway.app/api";
+
+// Choisit automatiquement la bonne API selon l'environnement.
+// En local, le site utilise localhost. En ligne, il utilise le backend Railway.
 const API_BASE_URL = ["localhost", "127.0.0.1"].includes(window.location.hostname)
   ? "http://localhost:3000/api"
   : PRODUCTION_API_BASE_URL;
 
+// Indique si la page actuelle se trouve dans assets/pages.
+// Cette information sert à construire les bons chemins d'images et de JSON.
 function isSubPage() {
   return window.location.pathname.includes(SUBPAGE_SEGMENT);
 }
 
+// Donne le chemin du fichier JSON de secours selon la page affichée.
 function getArticlesJsonPath() {
   return isSubPage() ? "../data/articles.json" : "./assets/data/articles.json";
 }
 
+// Convertit les chemins d'images pour qu'ils fonctionnent depuis l'accueil et les sous-pages.
 function resolveImagePath(imagePath) {
   if (!imagePath) {
     return isSubPage() ? "../img/hero-section.svg" : "./assets/img/hero-section.svg";
@@ -39,6 +46,7 @@ function resolveImagePath(imagePath) {
   return imagePath;
 }
 
+// Protège l'affichage HTML contre l'injection de balises dans les données reçues.
 function escapeHTML(value = "") {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -48,6 +56,7 @@ function escapeHTML(value = "") {
     .replaceAll("'", "&#039;");
 }
 
+// Transforme une date SQL ou ISO en date lisible au format français.
 function formatDate(dateValue) {
   if (!dateValue) return "Date inconnue";
 
@@ -64,6 +73,7 @@ function formatDate(dateValue) {
   }).format(date);
 }
 
+// Récupère les articles historiques du fichier JSON utilisé comme secours.
 async function fetchBaseArticles() {
   try {
     const response = await fetch(getArticlesJsonPath());
@@ -79,6 +89,8 @@ async function fetchBaseArticles() {
   }
 }
 
+// Appelle la route GET /api/articles du backend Express.
+// Cette route lit les articles depuis MySQL.
 async function fetchApiArticles() {
   try {
     const response = await fetch(`${API_BASE_URL}/articles`);
@@ -94,6 +106,7 @@ async function fetchApiArticles() {
   }
 }
 
+// Appelle la route GET /api/articles/:id pour récupérer un seul article depuis MySQL.
 async function fetchApiArticleById(articleId) {
   try {
     const response = await fetch(`${API_BASE_URL}/articles/${articleId}`);
@@ -109,6 +122,7 @@ async function fetchApiArticleById(articleId) {
   }
 }
 
+// Récupère les articles créés localement quand l'API n'est pas disponible.
 function getLocalArticles() {
   const rawArticles = localStorage.getItem(STORAGE_KEY);
 
@@ -129,10 +143,12 @@ function getLocalArticles() {
   }
 }
 
+// Enregistre les articles de secours dans le navigateur.
 function saveLocalArticles(articles) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
 }
 
+// Corrige une ancienne faute sauvegardée dans localStorage sans modifier la base MySQL.
 function fixKnownLocalTypos(articles) {
   let hasChanged = false;
 
@@ -155,12 +171,15 @@ function fixKnownLocalTypos(articles) {
   };
 }
 
+// Ajoute un article en localStorage uniquement comme solution de secours.
 function addLocalArticle(article) {
   const currentArticles = getLocalArticles();
   currentArticles.unshift(article);
   saveLocalArticles(currentArticles);
 }
 
+// Crée un article via POST /api/articles.
+// Si le backend ne répond pas, l'article est conservé localement pour ne pas bloquer l'interface.
 async function addArticle(article) {
   try {
     const response = await fetch(`${API_BASE_URL}/articles`, {
@@ -183,6 +202,7 @@ async function addArticle(article) {
   }
 }
 
+// Récupère les commentaires SQL d'un article via GET /api/articles/:id/comments.
 async function getCommentsByArticle(articleId) {
   try {
     const response = await fetch(`${API_BASE_URL}/articles/${articleId}/comments`);
@@ -198,6 +218,7 @@ async function getCommentsByArticle(articleId) {
   }
 }
 
+// Ajoute un commentaire SQL via POST /api/articles/:id/comments.
 async function addComment(articleId, comment) {
   const response = await fetch(`${API_BASE_URL}/articles/${articleId}/comments`, {
     method: "POST",
@@ -214,6 +235,7 @@ async function addComment(articleId, comment) {
   return response.json();
 }
 
+// Fonction principale utilisée par les pages : API MySQL en priorité, secours local ensuite.
 async function getAllArticles() {
   const apiArticles = await fetchApiArticles();
 
@@ -227,6 +249,7 @@ async function getAllArticles() {
   return [...localArticles, ...baseArticles];
 }
 
+// Récupère un article par son identifiant depuis l'API ou depuis les données de secours.
 async function getArticleById(articleId) {
   const apiArticle = await fetchApiArticleById(articleId);
 
@@ -238,6 +261,7 @@ async function getArticleById(articleId) {
   return articles.find((article) => String(article.id) === String(articleId));
 }
 
+// Rend les fonctions disponibles pour les autres scripts front sans utiliser de module bundler.
 window.ArticleService = {
   addArticle,
   addComment,

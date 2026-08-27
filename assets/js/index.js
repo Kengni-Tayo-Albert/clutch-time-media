@@ -1,6 +1,8 @@
 // =========================
 // CARROUSEL DE LA PAGE D'ACCUEIL
 // =========================
+// Ce script affiche les articles mis en avant sur la page d'accueil.
+// Les données viennent du service ArticleService, donc de l'API MySQL en production.
 
 document.addEventListener("DOMContentLoaded", async () => {
   const track = document.querySelector("#home-carousel-track");
@@ -12,11 +14,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // Les articles "featured" alimentent le carrousel d'accueil.
   const allArticles = await window.ArticleService.getAllArticles();
   const featuredArticles = allArticles.filter((article) => article.featured);
   const itemsPerSlide = window.matchMedia("(max-width: 900px)").matches ? 1 : 2;
   const slides = [];
 
+  // Découpe les articles en slides de 1 élément sur mobile et 2 éléments sur desktop.
   for (let index = 0; index < featuredArticles.length; index += itemsPerSlide) {
     slides.push(featuredArticles.slice(index, index + itemsPerSlide));
   }
@@ -29,6 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let currentSlideIndex = 0;
 
+  // Affiche la slide active et sécurise les textes avant injection dans le HTML.
   function renderSlide() {
     const currentArticles = slides[currentSlideIndex];
 
@@ -67,6 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderDots();
   }
 
+  // Reconstruit les points de navigation du carrousel.
   function renderDots() {
     dotsContainer.innerHTML = slides.map((_, index) => {
       const activeClass = index === currentSlideIndex ? "dot active" : "dot";
@@ -81,11 +87,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
+  // Navigation circulaire vers la slide précédente.
   prevButton.addEventListener("click", () => {
     currentSlideIndex = currentSlideIndex === 0 ? slides.length - 1 : currentSlideIndex - 1;
     renderSlide();
   });
 
+  // Navigation circulaire vers la slide suivante.
   nextButton.addEventListener("click", () => {
     currentSlideIndex = currentSlideIndex === slides.length - 1 ? 0 : currentSlideIndex + 1;
     renderSlide();

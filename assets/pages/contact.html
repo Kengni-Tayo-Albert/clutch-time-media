@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+  <!-- Configuration de base : encodage, affichage mobile, titre, style et favicon. -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact - Clutch Time Media</title>
@@ -10,6 +11,7 @@
 </head>
 
 <body>
+  <!-- En-tête commun : navigation entre les pages du site. -->
   <header class="header">
     <div class="container nav-container">
       <a href="../../index.html" class="logo">
@@ -37,11 +39,13 @@
     </div>
   </header>
 
+  <!-- Bannière de contact : identifie la page au premier regard. -->
   <section class="contact-banner">
     <div class="contact-banner-overlay"></div>
     <h1>CONTACTEZ-NOUS</h1>
   </section>
 
+  <!-- Formulaire de contact statique : il présente l'interface, sans persistance SQL. -->
   <main class="contact-page">
     <section class="contact-section">
       <div class="contact-card">
@@ -57,9 +61,9 @@
           </div>
 
           <div class="form-group">
-            <label for="category">Categorie</label>
+            <label for="category">Catégorie</label>
             <select id="category" name="category">
-              <option>Questions generales</option>
+              <option>Questions générales</option>
               <option>Partenariat</option>
               <option>Publicite</option>
               <option>Support technique</option>
@@ -84,6 +88,7 @@
     </section>
   </main>
 
+  <!-- Pied de page commun. -->
   <footer class="footer">
     <div class="container">
       <p>3 rue des basketteurs, 5500 LAL | 55-55-55-55 | clutchtimemedia@contact.fr</p>
@@ -91,6 +96,7 @@
     </div>
   </footer>
 
+  <!-- Script commun pour le menu responsive. -->
   <script src="../js/main.js"></script>
 </body>
 

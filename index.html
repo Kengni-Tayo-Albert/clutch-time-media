@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+  <!-- Configuration de base : encodage, affichage mobile, titre, style et favicon. -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clutch Time Media</title>
@@ -10,6 +11,7 @@
 </head>
 
 <body>
+  <!-- En-tête commun : logo, navigation principale et accès aux pages de compte. -->
   <header class="header">
     <div class="container nav-container">
       <a href="./index.html" class="logo">
@@ -38,6 +40,7 @@
   </header>
 
   <main>
+    <!-- Hero : première section visible, avec le message principal et l'appel vers les articles. -->
     <section class="hero">
       <div class="container">
         <h1>VIBREZ AU RYTHME DE LA NBA !</h1>
@@ -49,6 +52,7 @@
       </div>
     </section>
 
+    <!-- Articles à la une : index.js injecte ici les articles récupérés par ArticleService. -->
     <section class="featured">
       <div class="container">
         <h2>A LA UNE</h2>
@@ -68,6 +72,7 @@
     </section>
   </main>
 
+  <!-- Pied de page commun : informations de contact et copyright. -->
   <footer class="footer">
     <div class="container">
       <p>3 rue des basketteurs, 5500 LAL | 55-55-55-55 | clutchtimemedia@contact.fr</p>
@@ -75,6 +80,7 @@
     </div>
   </footer>
 
+  <!-- Scripts : service de données, menu responsive, puis carrousel de la page d'accueil. -->
   <script src="./assets/js/articles.service.js"></script>
   <script src="./assets/js/main.js"></script>
   <script src="./assets/js/index.js"></script>

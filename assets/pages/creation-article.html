@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+  <!-- Configuration de base : encodage, affichage mobile, titre, style et favicon. -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Créer un article - Clutch Time Media</title>
@@ -10,6 +11,7 @@
 </head>
 
 <body>
+  <!-- En-tête commun : navigation du site et accès aux pages de compte. -->
   <header class="header">
     <div class="container nav-container">
       <a href="../../index.html" class="logo">
@@ -37,11 +39,13 @@
     </div>
   </header>
 
+  <!-- Bannière de contexte pour la publication d'un nouvel article. -->
   <section class="create-banner">
     <div class="create-banner-overlay"></div>
     <h1>CRÉER UN ARTICLE</h1>
   </section>
 
+  <!-- Formulaire principal : create-article.js lit ces champs puis envoie les données à l'API. -->
   <main class="create-page">
     <section class="create-section">
       <div class="create-card">
@@ -99,6 +103,7 @@
     </section>
   </main>
 
+  <!-- Pied de page commun. -->
   <footer class="footer">
     <div class="container">
       <p>3 rue des basketteurs, 5500 LAL | 55-55-55-55 | clutchtimemedia@contact.fr</p>
@@ -106,6 +111,7 @@
     </div>
   </footer>
 
+  <!-- Scripts : service API, menu responsive, puis traitement du formulaire article. -->
   <script src="../js/articles.service.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/create-article.js"></script>

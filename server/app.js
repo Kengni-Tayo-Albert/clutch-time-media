@@ -8,15 +8,23 @@ const commentsRepository = require("./comments.repository");
 const app = express();
 const port = Number(process.env.PORT) || 3000;
 const publicDir = path.join(__dirname, "..");
+
+// Liste des fronts autorisés à appeler l'API.
+// En local, le front et le backend tournent sur localhost.
+// En production, CLIENT_ORIGIN autorise le site GitHub Pages.
 const allowedOrigins = new Set([
   "http://localhost:3000",
   "http://127.0.0.1:3000",
   process.env.CLIENT_ORIGIN
 ].filter(Boolean));
 
+// Limite la taille des JSON reçus pour éviter les envois trop volumineux.
 app.use(express.json({ limit: "20kb" }));
+
+// Sert aussi les fichiers HTML/CSS/JS quand le projet est lancé en local via Express.
 app.use(express.static(publicDir));
 
+// Middleware CORS : autorise le front à appeler l'API depuis un autre domaine.
 app.use((request, response, next) => {
   const origin = request.headers.origin;
 
@@ -35,22 +43,27 @@ app.use((request, response, next) => {
   next();
 });
 
+// Nettoie les textes reçus depuis les formulaires avant validation.
 function getText(value) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+// Vérifie le format attendu par MySQL pour les champs DATE.
 function isValidDate(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(new Date(value).getTime());
 }
 
+// Empêche les routes avec identifiant de recevoir autre chose qu'un nombre.
 function isValidId(value) {
   return /^\d+$/.test(String(value));
 }
 
+// Réponse commune pour les erreurs de validation côté API.
 function sendValidationError(response, message) {
   response.status(400).json({ message });
 }
 
+// Middleware de validation pour toutes les routes qui utilisent :id.
 function validateArticleId(request, response, next) {
   if (!isValidId(request.params.id)) {
     sendValidationError(response, "Identifiant d'article invalide.");
@@ -60,6 +73,8 @@ function validateArticleId(request, response, next) {
   next();
 }
 
+// Validation complète utilisée lors de la création d'un article.
+// Elle protège la base SQL contre les valeurs manquantes ou trop longues.
 function validateArticlePayload(request, response, next) {
   const article = {
     title: getText(request.body.title),
@@ -102,6 +117,8 @@ function validateArticlePayload(request, response, next) {
   next();
 }
 
+// Validation partielle utilisée lors de la modification d'un article.
+// Seuls les champs transmis sont remplacés.
 function validatePartialArticlePayload(request, response, next) {
   const article = {
     title: getText(request.body.title),
@@ -144,6 +161,7 @@ function validatePartialArticlePayload(request, response, next) {
   next();
 }
 
+// Validation du formulaire commentaire avant insertion en base.
 function validateCommentPayload(request, response, next) {
   const comment = {
     author: getText(request.body.author) || "Lecteur",
@@ -164,10 +182,12 @@ function validateCommentPayload(request, response, next) {
   next();
 }
 
+// Route de santé : utile pour prouver que le backend Railway répond et connaît la base utilisée.
 app.get("/api/health", (request, response) => {
   response.json({ status: "ok", database: process.env.DB_NAME || "blog" });
 });
 
+// READ : retourne la liste des articles depuis MySQL.
 app.get("/api/articles", async (request, response, next) => {
   try {
     const articles = await articlesRepository.getAllArticles();
@@ -177,6 +197,7 @@ app.get("/api/articles", async (request, response, next) => {
   }
 });
 
+// READ : retourne le détail d'un article précis.
 app.get("/api/articles/:id", validateArticleId, async (request, response, next) => {
   try {
     const article = await articlesRepository.getArticleById(request.params.id);
@@ -192,6 +213,7 @@ app.get("/api/articles/:id", validateArticleId, async (request, response, next) 
   }
 });
 
+// CREATE : crée un article depuis le formulaire front.
 app.post("/api/articles", validateArticlePayload, async (request, response, next) => {
   try {
     const article = await articlesRepository.createArticle(request.body);
@@ -201,6 +223,7 @@ app.post("/api/articles", validateArticlePayload, async (request, response, next
   }
 });
 
+// UPDATE : modifie un article existant.
 app.put("/api/articles/:id", validateArticleId, validatePartialArticlePayload, async (request, response, next) => {
   try {
     const article = await articlesRepository.updateArticle(request.params.id, request.body);
@@ -216,6 +239,7 @@ app.put("/api/articles/:id", validateArticleId, validatePartialArticlePayload, a
   }
 });
 
+// DELETE : supprime un article. Les commentaires liés sont supprimés par la contrainte SQL ON DELETE CASCADE.
 app.delete("/api/articles/:id", validateArticleId, async (request, response, next) => {
   try {
     const deleted = await articlesRepository.deleteArticle(request.params.id);
@@ -231,6 +255,7 @@ app.delete("/api/articles/:id", validateArticleId, async (request, response, nex
   }
 });
 
+// READ relationnel : retourne les commentaires associés à un article.
 app.get("/api/articles/:id/comments", validateArticleId, async (request, response, next) => {
   try {
     const comments = await commentsRepository.getCommentsByArticle(request.params.id);
@@ -240,6 +265,7 @@ app.get("/api/articles/:id/comments", validateArticleId, async (request, respons
   }
 });
 
+// CREATE relationnel : ajoute un commentaire rattaché à un article et à un auteur.
 app.post("/api/articles/:id/comments", validateArticleId, validateCommentPayload, async (request, response, next) => {
   try {
     const comment = await commentsRepository.createComment(request.params.id, request.body);
@@ -249,6 +275,7 @@ app.post("/api/articles/:id/comments", validateArticleId, validateCommentPayload
   }
 });
 
+// Gestion centralisée des erreurs serveur.
 app.use((error, request, response, next) => {
   console.error(error);
   response.status(500).json({
@@ -256,6 +283,7 @@ app.use((error, request, response, next) => {
   });
 });
 
+// Démarre le serveur sur 0.0.0.0 pour fonctionner en local et sur Railway.
 app.listen(port, "0.0.0.0", () => {
   console.log(`Clutch Time Media API disponible sur http://localhost:${port}`);
 });

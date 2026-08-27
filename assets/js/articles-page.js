@@ -2,12 +2,14 @@
 // PAGE ARTICLES
 // =========================
 // Affiche toutes les cartes articles dans la page liste.
+// En production, les articles proviennent du backend Railway connecté à MySQL.
 
 document.addEventListener("DOMContentLoaded", async () => {
   const articlesList = document.querySelector("#articles-list");
 
   if (!articlesList || !window.ArticleService) return;
 
+  // Charge les articles depuis l'API SQL ou depuis le secours local.
   const articles = await window.ArticleService.getAllArticles();
 
   if (articles.length === 0) {
@@ -15,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // Transforme chaque article en carte HTML affichée dans la grille.
   articlesList.innerHTML = articles.map((article) => {
     const title = window.ArticleService.escapeHTML(article.title);
     const subtitle = window.ArticleService.escapeHTML(article.subtitle);

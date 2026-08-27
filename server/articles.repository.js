@@ -1,5 +1,7 @@
 const db = require("./db");
 
+// Transforme une ligne SQL en objet attendu par le front-end.
+// Cela évite d'exposer directement les noms de colonnes de la base.
 function mapArticle(row) {
   return {
     id: String(row.id_article),
@@ -16,6 +18,7 @@ function mapArticle(row) {
   };
 }
 
+// Récupère les articles avec leurs auteurs et catégories grâce aux jointures SQL.
 async function getAllArticles() {
   const [rows] = await db.execute(`
     SELECT
@@ -37,6 +40,7 @@ async function getAllArticles() {
   return rows.map(mapArticle);
 }
 
+// Récupère un seul article par sa clé primaire.
 async function getArticleById(articleId) {
   const [rows] = await db.execute(
     `
@@ -61,6 +65,7 @@ async function getArticleById(articleId) {
   return rows.length > 0 ? mapArticle(rows[0]) : null;
 }
 
+// Cherche une catégorie existante ou la crée si elle n'existe pas encore.
 async function findOrCreateCategory(categoryName) {
   const cleanName = categoryName || "Community";
   const [existingRows] = await db.execute(
@@ -80,6 +85,7 @@ async function findOrCreateCategory(categoryName) {
   return result.insertId;
 }
 
+// Cherche un auteur existant ou le crée pour respecter la relation auteur/article.
 async function findOrCreateAuthor(authorName) {
   const cleanName = authorName || "Auteur inconnu";
   const email = `${cleanName.toLowerCase().replace(/[^a-z0-9]+/g, ".")}@clutchtime.local`;
@@ -101,6 +107,7 @@ async function findOrCreateAuthor(authorName) {
   return result.insertId;
 }
 
+// Insère un article dans MySQL avec ses clés étrangères auteur et catégorie.
 async function createArticle(article) {
   const categoryId = await findOrCreateCategory(article.category);
   const authorId = await findOrCreateAuthor(article.author);
@@ -134,6 +141,7 @@ async function createArticle(article) {
   return getArticleById(result.insertId);
 }
 
+// Met à jour un article existant en conservant les anciennes valeurs non transmises.
 async function updateArticle(articleId, article) {
   const currentArticle = await getArticleById(articleId);
 
@@ -174,6 +182,8 @@ async function updateArticle(articleId, article) {
   return getArticleById(articleId);
 }
 
+// Supprime un article par son identifiant.
+// La suppression des commentaires liés est gérée par la contrainte SQL.
 async function deleteArticle(articleId) {
   const [result] = await db.execute("DELETE FROM article WHERE id_article = ?", [articleId]);
   return result.affectedRows > 0;

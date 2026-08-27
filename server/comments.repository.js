@@ -1,5 +1,7 @@
 const db = require("./db");
 
+// Récupère les commentaires d'un article avec le nom de leur auteur.
+// La jointure montre la relation entre commentaire et auteur.
 async function getCommentsByArticle(articleId) {
   const [rows] = await db.execute(
     `
@@ -24,6 +26,8 @@ async function getCommentsByArticle(articleId) {
   }));
 }
 
+// Crée un commentaire pour un article.
+// Si le nom saisi n'existe pas encore comme auteur, il est créé avant l'insertion.
 async function createComment(articleId, comment) {
   const authorName = comment.author || "Lecteur";
   const email = `${authorName.toLowerCase().replace(/[^a-z0-9]+/g, ".")}@clutchtime.local`;

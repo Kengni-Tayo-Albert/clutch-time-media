@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+  <!-- Configuration de base : encodage, affichage mobile, titre, style et favicon. -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Articles - Clutch Time Media</title>
@@ -10,6 +11,7 @@
 </head>
 
 <body>
+  <!-- En-tête commun : conserve la même navigation sur tout le site. -->
   <header class="header">
     <div class="container nav-container">
       <a href="../../index.html" class="logo">
@@ -37,16 +39,19 @@
     </div>
   </header>
 
+  <!-- Bannière de page : indique que cette page affiche les actualités du blog. -->
   <section class="banner">
     <h1>ACTUALITES</h1>
   </section>
 
+  <!-- Conteneur dynamique : articles-page.js remplace le chargement par les cartes articles. -->
   <main class="articles">
     <section class="container articles-list-grid" id="articles-list">
       <p class="empty-state">Chargement des articles...</p>
     </section>
   </main>
 
+  <!-- Pied de page commun. -->
   <footer class="footer">
     <div class="container">
       <p>3 rue des basketteurs, 5500 LAL | 55-55-55-55 | clutchtimemedia@contact.fr</p>
@@ -54,6 +59,7 @@
     </div>
   </footer>
 
+  <!-- Scripts : ArticleService appelle l'API SQL, articles-page.js affiche la liste. -->
   <script src="../js/articles.service.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/articles-page.js"></script>
